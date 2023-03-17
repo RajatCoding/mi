@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <title>Calc</title>
+</head>
+<body>
+
+    <div class="col-md-12 mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-1 mt-2">
+                
+    <form action="{% url 'calc' %}" method="post" autocomplete="off" class="form-control-lg shadow p-2 mb-5 bg-white rounded">   
+        {% csrf_token %}
+        <h1 class="text-center mb-2">Reverse Rate Calculator</h1>
+        <div class="form-check">
+            <div class="row">
+        <div class="col-1">
+        <input type="radio" class="form-check-input" onclick="func1()" name="flexRadioDefault" id="flexRadioDefault1"></div>
+        <div class="col-5">
+        <label for="investment_amount" class="">Investment Amount:</label></div>
+        <div class="col">
+        <input id="investment_amount" type="number" name="investment_amount" placeholder="Investment Amount" value="{{investment_amount|floatformat:0}}"  autocomplete="off" step="0.001" class="form-control"></div></div>
+        
+        <div class="row">
+            <div class="col-1">
+        <input type="radio" class="form-check-input" onclick="func2()" name="flexRadioDefault" id="flexRadioDefault2"></div>
+        <div class="col-5">
+        <label for="maturity_amount">Maturity Amount: </label></div>
+        <div class="col">
+        <input id="maturity_amount" type="number" name="maturity_amount" value=
+        "{{maturity_amount|floatformat:2 }}" placeholder="Maturity Amount" autocomplete="off" step="0.001" class="form-control col-md-4"></div></div>
+      </div>
+
+
+        
+    <div class="row">
+        <div class="col">
+        <label for="in">Rate: </label></div>
+        <div class="col">
+        <input id="rate" type="number" name="rate" value="{{rate|floatformat:2}}" required autocomplete="off" placeholder="Rate" step="0.001" class="form-control"></div></div>
+        
+        <div class="row">
+            <div class="col">
+        <label for="interest_amount">Interest Amount: </label></div>
+        <div class="col">
+        <input id="interest_amount" type="number" name="interest_amount" value="{{interest_amount|floatformat:2}}" autocomplete="off" step="0.001" placeholder="Interest Amount" class="form-control"></div></div>
+
+        
+            <div class="row">
+        
+        <div class="col-5">
+        <label for="flexRadioDefault3" class="">Investment Date:</label></div>
+        <div class="col">
+        <input id="investment_date" type="date" name="investment_date" placeholder="Investment Date" value="{{investment_date|date:'Y-m-d'}}"  autocomplete="off" step="0.001" class="form-control"></div></div>
+        
+        <div class="row">
+            
+        <div class="col">
+        <label for="due_date">Due Date: </label></div>
+        <div class="col">
+        <input id="due_date" type="date" name="due_date" value=
+        "{{due_date|date:'Y-m-d'}}" placeholder="Due Date" autocomplete="off" step="0.001" class="form-control col-md-4"></div></div>
+
+        <div class="row">
+            <div class="col">
+        <label for="period">Period: </label></div>
+        <div class="col">
+        <input id="period" type="number" name="period" placeholder="Period" value="{{period|floatformat:0}}"  autocomplete="off" class="form-control"></div>
+    </div>       
+      
+
+
+
+        <input id="val" type="hidden" name="val" value="">
+
+        <div class="text-center mb-3 mt-3">
+            <input type="submit" value="Submit" class="btn btn-primary">
+            <input type="button" value="Reset" class="btn btn-warning" onclick="func4()">
+        </div>
+
+       
+
+
+
+          </form>
+        </div>
+    
+
+    <div class="col-md-4">
+    <form action="{% url 'calc1' %}" id="myform" method="post" class="form-control-lg shadow p-2 mb-5 bg-white rounded mt-1 offset-1">
+        {% csrf_token %}
+        <h1 class="text-center">Rate Calculator</h1>
+
+        <div class="row">
+            <div class="col">
+        <label for="investment_amount" class="">Investment Amount:</label></div>
+        <div class="col">
+        <input id="investment_amount1" type="number" step="0.01" name="investment_amount" placeholder="Investment Amount" value="{{investment_amount1}}" required autocomplete="off" class="form-control"></div></div>
+        
+
+        <div class="row">
+            <div class="col">
+        <label for="period">Period: </label>
+            </div>
+            <div class="col">
+        <input id="period1" type="number" name="period" placeholder="Period" value="{{period1|floatformat:2}}" required autocomplete="off" step="0.01" class="form-control"></div></div>
+  
+        <div class="row">
+            <div class="col">
+        <label for="in">Rate On Investmentamount: </label></div>
+        <div class="col">
+        <input id="rate1" type="number" step="0.001" name="rate" value="{{rate1|floatformat:2}}" required autocomplete="off" placeholder="Rate" class="form-control"></div></div>
+        
+        <div class="row">
+            <div class="col">
+        <label for="interest_amount">Interest Amount: </label></div>
+        <div class="col">
+        <input id="interest_amount1" type="number" name="interest_amount" value="{{interest_amount1|floatformat:2}}" autocomplete="off" placeholder="Interest Amount" class="form-control"></div></div>
+
+        <div class="row">
+            <div class="col">
+        <label for="maturity_amount">Maturity Amount: </label></div>
+        <div class="col">
+        <input id="maturity_amount1" type="number" name="maturity_amount" value=
+        "{{maturity_amount1|floatformat:0}}" placeholder="Maturity Amount" autocomplete="off" class="form-control"><div class="col"></div>
+        </div>
+
+        <div class="text-center mb-3 mt-3">
+        <input type="submit" value="Submit" class="btn btn-primary">
+        <input type="button" value="Reset" class="btn btn-warning" onclick="func3()">
+        
+    </div>
+
+     
+
+
+    </form>
+    
+ 
+</div></div>
+</div>
+          <script>
+    
+            function func1() {
+              document.getElementById("val").value = "1";
+            };
+          
+            function func2() {
+              document.getElementById("val").value = "2";
+            }
+           
+            function func3(){
+
+                console.log("3")
+                document.getElementById("interest_amount1").value ="";
+        document.getElementById("maturity_amount1").value ="";
+        document.getElementById("investment_amount1").value ="";
+        document.getElementById("rate1").value ="";
+        document.getElementById("period1").value ="";
+            }
+
+            function func4(){
+                console.log("4")
+                document.getElementById("interest_amount").value ="";
+        document.getElementById("maturity_amount").value ="";
+        document.getElementById("investment_amount").value ="";
+        document.getElementById("rate").value ="";
+        document.getElementById("period").value ="";
+        document.getElementById("investment_date").value ="";
+        document.getElementById("due_date").value ="";
+
+            }
+
+          
+
+            </script>
+</body>
+</html>
