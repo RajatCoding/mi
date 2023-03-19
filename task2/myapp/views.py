@@ -61,28 +61,7 @@ def calc(request):
             # investment_amount = (float(maturity_amount)*36500)/(float(rate)*float(period)+36500)
             # interest_amount = (float(investment_amount)*float(rate)*float(period))/36500
             try:
-
-                if rate == "":
-                    print("m")
-                    n = 36500**2*float(interest_amount)
-                    d = float(investment_amount)*float(period)
-                    c = n/d
-                    d1 = 2*int(period)
-                    # r^2t+36500r-c=0
-             
-                    const = (36500**2) - 4*int(period)*float(c)
-
-                    rate1 = ((-36500) + (const)**0.5)/d1
-                    rate2 = ((-36500) - (const)**0.5)/d1
-                    if rate1>rate2:
-                        rate = -rate1
-                    else:
-                        rate = -rate2
-
-                else:
-
                     a = float(rate)**2*float(period)**2+36500*float(rate)*float(period)+36500**2
-                    
                     investment_amount = (float(maturity_amount)*36500*36500)/a
                     interest_amount = float(maturity_amount)-float(investment_amount)
             except Exception as msg:
